@@ -1,17 +1,22 @@
 package ipt.pt.sd.moviesmanager
 
-
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.telecom.Call
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager.widget.ViewPager
 import ipt.pt.sd.moviesmanager.models.Movie
 import ipt.pt.sd.moviesmanager.models.Search
-import javax.security.auth.callback.Callback
+
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
-
+import retrofit2.Call
+import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,10 +28,65 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        val myStrings = arrayOf("Author", "Title", "Clear")
+        var call = API.create().getData()
+        btn_movies.setBackgroundColor(Color.parseColor("#4D101010"))
+
         callMovies()
 
+        btnSubmit.setOnClickListener {
+            val searchTxt = lblEdit.text.toString()
+            //teclado desaparece
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(lblEdit.windowToken, 0)
+
+            fList.clear()
+            fList.addAll(
+                mList.filter {
+                    it.title?.lowercase()?.contains(searchTxt.lowercase()) == true
+                }
+            )
+            list.adapter?.notifyDataSetChanged()
+        }
+            btn_movies.setOnClickListener{
+                callMovies()
+                btn_movies.setBackgroundColor(Color.parseColor("#4D101010"))
+                btn_tv.setBackgroundColor(Color.parseColor("#4D4D4D4D"))
+            }
+
+        btn_tv.setOnClickListener{
+            callSeries()
+            btn_tv.setBackgroundColor(Color.parseColor("#4D101010"))
+            btn_movies.setBackgroundColor(Color.parseColor("#4D4D4D4D"))
+        }
+
+        btnLogOut.setOnClickListener{
+            //Firebase.auth.signOut()
+            //val intent = Intent(this, LoginActivity::class.java)
+            //startActivity(intent)
+        }
+
+        //Insere linha que separa cada item(Filme/Serie)
+        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        ContextCompat.getDrawable(this, R.drawable.recycleview_divider)?.let {
+            divider.setDrawable(it)
+        }
+        list.addItemDecoration(divider)
+
+
+        btnFavsList.setOnClickListener{
+            //val intent = Intent(this, FavoritesList::class.java)
+            //startActivity(intent)
+        }
+
+    }
+
+
+
+
         //Função para buscar filmes
-        fun callMovies() {
+        private fun callMovies() {
             var call = API.create().getData()
 
             call.enqueue(object : Callback<Search> {
@@ -52,5 +112,34 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
+
+    private fun callSeries (){
+        var call =  API.create().getDataTv()
+
+        call.enqueue(object : Callback<Search> {
+            override fun onFailure(call: Call<Search>, t: Throwable) {
+                Log.e("onFailure error", call.request().url().toString())
+                Log.e("onFailure error", t.message!!)
+            }
+
+            override fun onResponse(call: Call<Search>, response: Response<Search>) {
+                response.body()?.let {
+                    //o simbolo de estar a pensar começa a trabalhar e quando chega aqui a visibilidade passa a nula, pois estamos a adicionar o texto
+                    homeprogress1.visibility = ViewPager.GONE
+
+                    mList.clear()
+                    mList.addAll(it.results)
+
+                    fList.clear()
+                    fList.addAll(it.results)
+
+                    list.adapter?.notifyDataSetChanged()
+                }
+            }
+        })
     }
-}
+
+
+
+
+    }
