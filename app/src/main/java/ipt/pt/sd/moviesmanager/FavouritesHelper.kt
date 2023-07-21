@@ -10,6 +10,8 @@ class FavouritesHelper (context: Context) {
 
     private val adapterType = Types.newParameterizedType(List::class.java, Movie::class.java)
     private val jsonAdapter = Moshi.Builder().build().adapter<List<Movie>>(adapterType)
+    private val favourites = getFavouritesList()
+    private val tempList = favourites?.toMutableList()
 
     private val mSharedPreferences: SharedPreferences by lazy {
         context.getSharedPreferences(
@@ -31,10 +33,7 @@ class FavouritesHelper (context: Context) {
     }
 
     fun addFavourite(Movie: Movie){
-
-        val favourites = getFavouritesList()
         val newList = mutableListOf(Movie)
-        val tempList = favourites?.toMutableList()
 
         if (favourites == null){
             mSharedPreferences.edit()
@@ -48,7 +47,22 @@ class FavouritesHelper (context: Context) {
                 .apply()
 
         }
+    }
 
+    fun removeFavourite(Movie: Movie){
+        if(favourites != null){
+            tempList?.remove(Movie)
+            mSharedPreferences.edit()
+                .putString(FAVOURITES_KEY, jsonAdapter.toJson(tempList))
+                .apply()
+        }
+    }
+
+
+    fun containsFavourite(Movie: Movie){
+        favourites?.contains(Movie).let {
+            addFavourite(Movie)
+        }
     }
 
 }
