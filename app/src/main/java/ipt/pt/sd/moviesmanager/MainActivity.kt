@@ -1,5 +1,6 @@
 package ipt.pt.sd.moviesmanager
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -10,10 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager.widget.ViewPager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import ipt.pt.sd.moviesmanager.models.Movie
 import ipt.pt.sd.moviesmanager.models.Search
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.movie_item_view.*
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,11 +27,14 @@ class MainActivity : AppCompatActivity() {
     //Declaração das listas de filmes
     val mList = mutableListOf<Movie>()
     val fList = mutableListOf<Movie>()
+    private val rCode = 1
+    private val lCode = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        list.adapter = ListAdapter(fList)
 
         val myStrings = arrayOf("Author", "Title", "Clear")
         var call = API.create().getData()
@@ -62,9 +69,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogOut.setOnClickListener{
-            //Firebase.auth.signOut()
-            //val intent = Intent(this, LoginActivity::class.java)
-            //startActivity(intent)
+            Firebase.auth.signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         //Insere linha que separa cada item(Filme/Serie)
@@ -83,8 +90,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
         //Função para buscar filmes
         private fun callMovies() {
             var call = API.create().getData()
@@ -94,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                     Log.e("onFailure error", call.request().url().toString())
                     Log.e("onFailure error", t.message!!)
                 }
+
 
                 override fun onResponse(call: Call<Search>, response: Response<Search>) {
                     response.body()?.let {
@@ -139,7 +145,32 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
 
+        when (requestCode) {
+            rCode -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.let {
+                        val lista = it.getParcelableExtra<Movie>("art")
+                            mList.add(lista!!)
+                            fList.add(lista!!)
+
+
+                        list.adapter?.notifyDataSetChanged()
+                    }
+                }
+            }
+            lCode -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.let {
+                        btnFavP.setImageResource(R.drawable.ic_favunpressed)
+                        list.adapter?.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+    }
 
     }
