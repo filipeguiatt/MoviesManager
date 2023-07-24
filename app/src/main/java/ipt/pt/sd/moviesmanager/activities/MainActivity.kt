@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import ipt.pt.sd.moviesmanager.API
+import ipt.pt.sd.moviesmanager.About
 import ipt.pt.sd.moviesmanager.R
 import ipt.pt.sd.moviesmanager.adapters.ListAdapter
 import ipt.pt.sd.moviesmanager.models.Movie
@@ -129,6 +130,11 @@ class MainActivity : AppCompatActivity() {
 
         btnFavsList.setOnClickListener{
             val intent = Intent(this, FavouritesList::class.java)
+            startActivity(intent)
+        }
+
+        btn_about.setOnClickListener{
+            val intent = Intent(this, About::class.java)
             startActivity(intent)
         }
 

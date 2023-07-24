@@ -20,7 +20,6 @@ class FavouritesList : AppCompatActivity() {
         mList.addAll(MainApp.favouritesHelper.getFavouritesList() ?: listOf())
 
         listFav.adapter = ListAdapterFavourites(mList)
-        
 
         listFav.layoutManager = GridLayoutManager(this, 2)
 

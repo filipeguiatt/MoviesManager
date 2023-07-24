@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#1C1C1C ">
+
+    <TextView
+        android:id="@+id/lblMestrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mestrado Engenharia Informática"
+        android:textColor="#006400"
+        android:textSize="40dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/lblSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desenvolvimento Aplicações Móveis Avançadas"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/lblMestrado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/photoPedro"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/pedro"
+        app:layout_constraintTop_toBottomOf="@id/lblSubject"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="6dp">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/photoFilipe"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/filipe"
+        app:layout_constraintTop_toBottomOf="@id/lblSubject"
+        app:layout_constraintStart_toEndOf="@id/photoPedro"
+        android:layout_marginTop="10dp">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/lblPedro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pedro Larangeira, 20476"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/lblSubject"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/lblFilipe"
+        android:layout_marginTop="300dp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/lblFilipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filipe Guia, 20245"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/lblSubject"
+        app:layout_constraintStart_toEndOf="@id/lblPedro"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="300dp">
+
+    </TextView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
