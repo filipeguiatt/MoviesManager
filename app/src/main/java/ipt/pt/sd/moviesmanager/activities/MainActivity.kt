@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import ipt.pt.sd.moviesmanager.API
-import ipt.pt.sd.moviesmanager.About
 import ipt.pt.sd.moviesmanager.R
 import ipt.pt.sd.moviesmanager.adapters.ListAdapter
 import ipt.pt.sd.moviesmanager.models.Movie
