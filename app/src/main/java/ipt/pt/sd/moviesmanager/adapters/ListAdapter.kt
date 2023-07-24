@@ -60,7 +60,7 @@ class ListAdapter (private val itemsList: MutableList<Movie>) : RecyclerView.Ada
 
         layout.container.btnFavP.setOnClickListener {
             //Insere a estrela premida ou nao consoante as estrelas da recyclerView do MainActivity
-            if (favouritesHelper.getFavouritesList()!!.contains(media)) {
+            if (favouritesHelper.getFavouritesList()?.contains(media) == true) {
                 layout.container.btnFavP.setImageResource(R.drawable.ic_favunpressed)
                 favouritesHelper.removeFavourite(media)
             } else {
