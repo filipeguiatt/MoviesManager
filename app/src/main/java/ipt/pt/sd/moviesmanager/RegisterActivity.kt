@@ -16,6 +16,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -28,7 +32,6 @@ import java.util.UUID
 
 class RegisterActivity : AppCompatActivity() {
     private var selectedPhotoUri: Uri? = null
-    lateinit var imgPhoto: ImageView
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +41,8 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.register_login)
         FirebaseApp.initializeApp(this)
 
-        imgPhoto = findViewById(R.id.imgPhoto)
 
-        findViewById<Button>(R.id.btnChoosePhoto).setOnClickListener {
+        btnChoosePhoto.setOnClickListener {
             val options = arrayOf<CharSequence>("Escolher da Galeria", "Tirar Foto")
             val builder = android.app.AlertDialog.Builder(this)
             builder.setTitle("Escolher Foto")
