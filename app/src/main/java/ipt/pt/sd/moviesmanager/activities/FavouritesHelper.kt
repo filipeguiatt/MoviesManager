@@ -7,21 +7,12 @@ import com.squareup.moshi.Types
 import ipt.pt.sd.moviesmanager.R
 import ipt.pt.sd.moviesmanager.models.Movie
 
-class FavouritesHelper (context: Context) {
+class FavouritesHelper(context: Context) {
 
     private val adapterType = Types.newParameterizedType(List::class.java, Movie::class.java)
     private val jsonAdapter = Moshi.Builder().build().adapter<List<Movie>>(adapterType)
-    private val favourites = getFavouritesList()
-    private val tempList = favourites?.toMutableList()
 
-    private val mSharedPreferences: SharedPreferences by lazy {
-        context.getSharedPreferences(
-            context.getString(R.string.app_name),
-            Context.MODE_PRIVATE
-        )
-    }
-
-    companion object{
+    companion object {
         const val FAVOURITES_KEY = "favourites"
     }
 
@@ -33,26 +24,21 @@ class FavouritesHelper (context: Context) {
         return null
     }
 
-    fun addFavourite(Movie: Movie){
-        val newList = mutableListOf(Movie)
+    fun addFavourite(Movie: Movie) {
 
-        if (favourites == null){
+        val favourites = getFavouritesList()
+
+        if (favourites == null) {
+            val newList = mutableListOf(Movie)
+
             mSharedPreferences.edit()
                 .putString(FAVOURITES_KEY, jsonAdapter.toJson(newList))
                 .apply()
-        }
-        else{
-            tempList?.add(Movie)
-            mSharedPreferences.edit()
-                .putString(FAVOURITES_KEY, jsonAdapter.toJson(tempList))
-                .apply()
+        } else {
+            val tempList = favourites.toMutableList()
+            tempList.add(Movie)
 
-        }
-    }
 
-    fun removeFavourite(Movie: Movie){
-        if(favourites != null){
-            tempList?.remove(Movie)
             mSharedPreferences.edit()
                 .putString(FAVOURITES_KEY, jsonAdapter.toJson(tempList))
                 .apply()
@@ -60,10 +46,34 @@ class FavouritesHelper (context: Context) {
     }
 
 
-    fun containsFavourite(Movie: Movie){
+    fun removeFavourite(Movie: Movie) {
+
+        val favourites = getFavouritesList()
+        if (favourites != null) {
+            val tempList = favourites.toMutableList()
+            tempList.remove(Movie)
+            mSharedPreferences.edit()
+                .putString(FAVOURITES_KEY, jsonAdapter.toJson(tempList))
+                .apply()
+
+
+        }
+    }
+
+    fun containsFavourite(Movie: Movie) {
+
+        val favourites = getFavouritesList()
+
         favourites?.contains(Movie).let {
             addFavourite(Movie)
         }
+
     }
 
+    private val mSharedPreferences: SharedPreferences by lazy {
+        context.getSharedPreferences(
+            context.getString(R.string.app_name),
+            Context.MODE_PRIVATE
+        )
+    }
 }

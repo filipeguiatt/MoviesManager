@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         list.adapter = ListAdapter(fList)
-
+        MainApp.favouritesHelper = FavouritesHelper(applicationContext)
         val currentUser = FirebaseAuth.getInstance().currentUser
         val uid = currentUser?.uid
 
