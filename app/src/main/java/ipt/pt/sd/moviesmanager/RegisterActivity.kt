@@ -19,10 +19,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import ipt.pt.sd.moviesmanager.models.User
 
 import kotlinx.android.synthetic.main.register_login.*
 import java.io.ByteArrayOutputStream
+import java.util.UUID
 
 class RegisterActivity : AppCompatActivity() {
     private var selectedPhotoUri: Uri? = null
@@ -38,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
 
         imgPhoto = findViewById(R.id.imgPhoto)
 
-        findViewById<Button>(R.id.btnChoosePhoto).setOnClickListener{
+        findViewById<Button>(R.id.btnChoosePhoto).setOnClickListener {
             val options = arrayOf<CharSequence>("Escolher da Galeria", "Tirar Foto")
             val builder = android.app.AlertDialog.Builder(this)
             builder.setTitle("Escolher Foto")
@@ -58,46 +60,83 @@ class RegisterActivity : AppCompatActivity() {
         }
 
 
-        btToLogin.setOnClickListener{
+        btToLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
     }
-    private fun preformRegister(){
+
+    private fun preformRegister() {
         val email = txtEmail.text.toString()
         val password = txtPassword.text.toString()
 
-        if(email.isEmpty() || password.isEmpty()){
-            Toast.makeText(this, "Por favor insira um email ou password",Toast.LENGTH_SHORT).show()
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Por favor insira um email ou password", Toast.LENGTH_SHORT).show()
             return
         }
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password)
-            .addOnCompleteListener{
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 txtEmail.setText("")
                 txtPassword.setText("")
-                Log.w("Main","Criado com sucesso ${it.result.user?.uid}")
+                Log.w("Main", "Criado com sucesso ${it.result.user?.uid}")
                 saveUserToFirebase()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
             .addOnFailureListener {
-                Log.w("LoginActivity","Falhou a criação do user ${it.message}")
-                Toast.makeText(applicationContext, "${it.message}",Toast.LENGTH_LONG).show()
+                Log.w("LoginActivity", "Falhou a criação do user ${it.message}")
+                Toast.makeText(applicationContext, "${it.message}", Toast.LENGTH_LONG).show()
             }
     }
 
 
-    private fun saveUserToFirebase(){
-
+    private fun saveUserToFirebase() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
-        val ref = FirebaseDatabase.getInstance("https://moviesmanager-99a06-default-rtdb.europe-west1.firebasedatabase.app").getReference("/users/$uid")
-        val user = User(uid, txtNome.text.toString())
+        val ref =
+            FirebaseDatabase.getInstance("https://moviesmanager-99a06-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference("/users/$uid")
 
-        ref.setValue(user).addOnSuccessListener {
-            Log.d("RegisterActivity","O utilizador foi salvo")
+        val bucketUrl = "gs://moviesmanager-99a06.appspot.com" // Replace this with your correct Firebase Storage bucket URL
+
+        if (selectedPhotoUri != null) {
+            // Upload the image to Firebase Storage
+            val imageFileName = UUID.randomUUID().toString()
+            val imageRef = FirebaseStorage.getInstance().getReferenceFromUrl("$bucketUrl/images/$imageFileName")
+
+            imageRef.putFile(selectedPhotoUri!!)
+                .addOnSuccessListener { _ ->
+                    // Get the download URL of the uploaded image
+                    imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        val user = User(uid, txtNome.text.toString(), downloadUrl.toString())
+                        ref.setValue(user).addOnSuccessListener {
+                            Log.d("RegisterActivity", "O utilizador foi salvo")
+                            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }.addOnFailureListener {
+                            Log.w("RegisterActivity", "Falhou ao salvar o usuário: ${it.message}")
+                            Toast.makeText(this, "Falha ao salvar o usuário.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.w("RegisterActivity", "Falhou ao fazer upload da imagem: ${e.message}")
+                    Toast.makeText(this, "Falha ao fazer upload da imagem.", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            // Handle the case when no image is selected
+            val user = User(uid, txtNome.text.toString(), "")
+            ref.setValue(user).addOnSuccessListener {
+                Log.d("RegisterActivity", "O utilizador foi salvo")
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }.addOnFailureListener {
+                Log.w("RegisterActivity", "Falhou ao salvar o usuário: ${it.message}")
+                Toast.makeText(this, "Falha ao salvar o usuário.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

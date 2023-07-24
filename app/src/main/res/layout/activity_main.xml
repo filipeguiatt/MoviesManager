@@ -9,16 +9,6 @@
     android:background="#4D4D4D"
     >
 
-    <ImageView
-        android:id="@+id/btnFavsList"
-        android:layout_width="42dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="348dp"
-        android:src="@drawable/ic_favslist"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
@@ -36,9 +26,32 @@
         tools:ignore="TextContrastCheck,TextContrastCheck"
         tools:text="Search" />
 
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="27dp"
+        android:visibility="invisible"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:contentDescription="Photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnFavsList"
+        android:layout_width="42dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="348dp"
+        android:src="@drawable/ic_favslist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPhoto" />
+
+
     <EditText
         android:id="@+id/lblEdit"
-        android:layout_width="276dp"
+        android:layout_width="226dp"
         android:layout_height="48dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="112dp"

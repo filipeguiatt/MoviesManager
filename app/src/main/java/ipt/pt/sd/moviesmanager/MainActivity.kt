@@ -5,16 +5,28 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import ipt.pt.sd.moviesmanager.models.Movie
 import ipt.pt.sd.moviesmanager.models.Search
+import ipt.pt.sd.moviesmanager.models.User
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.movie_item_view.*
@@ -35,6 +47,39 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         list.adapter = ListAdapter(fList)
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uid = currentUser?.uid
+
+
+        if (!uid.isNullOrEmpty()) {
+            // Fetch the user's data from the Realtime Database
+            val userPictureRef = FirebaseDatabase.getInstance("https://moviesmanager-99a06-default-rtdb.europe-west1.firebasedatabase.app")
+                .getReference("/users/$uid/picture")
+            Log.d("ola",userPictureRef.toString())
+            Handler(Looper.getMainLooper()).postDelayed({
+                userPictureRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val pictureUrl = snapshot.getValue(String::class.java)
+                        if (!pictureUrl.isNullOrEmpty()) {
+                            imgPhoto.visibility = View.VISIBLE
+                            // Display da imagem do user
+                            Glide.with(this@MainActivity)
+                                .load(pictureUrl)
+                                .transform(CenterCrop(), RoundedCorners(16))
+                                .into(imgPhoto)
+                        } else {
+                            //se nao tiver imagem mete a imageView invisivel
+                            imgPhoto.visibility = View.GONE
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle any errors that occurred while fetching the user's data
+                    }
+                })
+            }, 5000)
+        }
 
         val myStrings = arrayOf("Author", "Title", "Clear")
         var call = API.create().getData()
@@ -143,34 +188,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-
-        when (requestCode) {
-            rCode -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.let {
-                        val lista = it.getParcelableExtra<Movie>("art")
-                            mList.add(lista!!)
-                            fList.add(lista!!)
-
-
-                        list.adapter?.notifyDataSetChanged()
-                    }
-                }
-            }
-            lCode -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.let {
-                        btnFavP.setImageResource(R.drawable.ic_favunpressed)
-                        list.adapter?.notifyDataSetChanged()
-                    }
-                }
-            }
-        }
     }
 
     }
