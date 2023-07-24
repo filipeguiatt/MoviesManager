@@ -3,6 +3,7 @@ package ipt.pt.sd.moviesmanager.adapters
 
 
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ipt.pt.sd.moviesmanager.R
+import ipt.pt.sd.moviesmanager.activities.MainApp.Companion.favouritesHelper
+import ipt.pt.sd.moviesmanager.activities.MainApp.Companion.movieList
 
 import ipt.pt.sd.moviesmanager.models.Movie
 import kotlinx.android.synthetic.main.movie_item_view.view.*
@@ -49,6 +52,22 @@ class ListAdapter (private val itemsList: MutableList<Movie>) : RecyclerView.Ada
 
         }
 
+        favouritesHelper.getFavouritesList()?.forEach { med ->
+            if(med == media)  {
+                layout.container.btnFavP.setImageResource(R.drawable.ic_favpressed)
+            }
+        }
+
+        layout.container.btnFavP.setOnClickListener {
+            //Insere a estrela premida ou nao consoante as estrelas da recyclerView do MainActivity
+            if (favouritesHelper.getFavouritesList()!!.contains(media)) {
+                layout.container.btnFavP.setImageResource(R.drawable.ic_favunpressed)
+                favouritesHelper.removeFavourite(media)
+            } else {
+                layout.container.btnFavP.setImageResource(R.drawable.ic_favpressed)
+                favouritesHelper.addFavourite(media)
+            }
+        }
     }
 
 

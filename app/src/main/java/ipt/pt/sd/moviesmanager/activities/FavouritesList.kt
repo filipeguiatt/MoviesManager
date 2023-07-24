@@ -11,7 +11,7 @@ import ipt.pt.sd.moviesmanager.models.Movie
 import kotlinx.android.synthetic.main.activity_favourites_list.btnGoBackMain
 import kotlinx.android.synthetic.main.activity_favourites_list.listFav
 
-class FavoritesList : AppCompatActivity() {
+class FavouritesList : AppCompatActivity() {
     val mList = mutableListOf<Movie>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

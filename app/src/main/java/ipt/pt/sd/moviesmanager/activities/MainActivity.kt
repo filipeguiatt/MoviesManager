@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 
 
         btnFavsList.setOnClickListener{
-            val intent = Intent(this, FavoritesList::class.java)
+            val intent = Intent(this, FavouritesList::class.java)
             startActivity(intent)
         }
 
