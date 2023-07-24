@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4D4D4D"
-    tools:context=".FavouritesList">
+    android:background="#1C1C1C"
+    tools:context=".FavoritesList">
 
     <TextView
         android:id="@+id/lblFavouriteMovies"
@@ -17,9 +17,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="60dp"
-        android:text="Favourite Movies"
-        tools:text="Favourite Movies"
-        android:textColor="#FFC107"
+        android:text="Favoritos"
+        tools:text="Favoritos"
+        android:textColor="#006400"
         android:textSize="37sp"
         android:textStyle="bold"
         android:textAlignment="center"

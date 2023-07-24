@@ -7,13 +7,13 @@ import ipt.pt.sd.moviesmanager.models.Movie
 class MainApp : Application() {
 
     companion object{
-        //lateinit var favouritesHelper: FavouritesHelper
+        lateinit var favouritesHelper: FavouritesHelper
         val movieList = mutableListOf<Movie>()
     }
 
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
-        //favouritesHelper  = FavoritesHelper()
+        favouritesHelper  = FavouritesHelper(applicationContext)
     }
 }

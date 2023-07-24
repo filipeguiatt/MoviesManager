@@ -1,8 +1,7 @@
 package ipt.pt.sd.moviesmanager
 
 
-import android.content.Intent
-import java.util.*
+
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.Picasso
+
 import ipt.pt.sd.moviesmanager.models.Movie
 import kotlinx.android.synthetic.main.movie_item_view.view.*
 
@@ -40,19 +38,9 @@ class ListAdapter (private val itemsList: MutableList<Movie>) : RecyclerView.Ada
         (layout.urlToImage == null).let {
             val baseURLImage = "w500"
 
-            //Torna a View urlToImage visivel
-            //layout.urlToImage.visibility = View.VISIBLE
-
-            //Cancelar o pedido de carregamento da imagem anterior (se essa existir) antes de carregar a nova imagem
-            //Picasso.get().cancelRequest(layout.urlToImage)
-
             //Constrói o path da imagem
             media.poster_path = "https://image.tmdb.org/t/p/" +baseURLImage + media.poster_path
 
-            //Define um placeholder enquanto a imagem está a ser carregada
-            //Carrega a imagem do url media.poster_path com a biblioteca Picasso na View
-            //Picasso.get().load(media.poster_path).placeholder(R.drawable.placeholder).into(layout.urlToImage)
-            //Picasso.get().load(media.poster_path).memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE).into(layout.urlToImage)
             Glide.with(layout.context)
                 .load(media.poster_path)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -61,11 +49,6 @@ class ListAdapter (private val itemsList: MutableList<Movie>) : RecyclerView.Ada
         }
 
     }
-    //Cancela o pedido de carregamento de imagens pendentes para evitar problemas de exibição
-    /*override fun onViewRecycled(holder: ViewHolder) {
-            Picasso.get().cancelRequest(holder.layoutView.urlToImage)
-
-    }*/
 
 
     //retorna o número total de items da recyclerView

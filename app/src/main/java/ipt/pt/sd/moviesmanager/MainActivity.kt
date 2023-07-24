@@ -128,8 +128,8 @@ class MainActivity : AppCompatActivity() {
 
 
         btnFavsList.setOnClickListener{
-            //val intent = Intent(this, FavoritesList::class.java)
-            //startActivity(intent)
+            val intent = Intent(this, FavoritesList::class.java)
+            startActivity(intent)
         }
 
     }
@@ -144,7 +144,6 @@ class MainActivity : AppCompatActivity() {
                     Log.e("onFailure error", call.request().url().toString())
                     Log.e("onFailure error", t.message!!)
                 }
-
 
                 override fun onResponse(call: Call<Search>, response: Response<Search>) {
                     response.body()?.let {
