@@ -1,4 +1,4 @@
-package ipt.pt.sd.moviesmanager
+package ipt.pt.sd.moviesmanager.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recyclerview_listafavs.view.*
 import androidx.recyclerview.widget.RecyclerView
+import ipt.pt.sd.moviesmanager.activities.MainApp
+import ipt.pt.sd.moviesmanager.R
 import ipt.pt.sd.moviesmanager.models.Movie
 
 

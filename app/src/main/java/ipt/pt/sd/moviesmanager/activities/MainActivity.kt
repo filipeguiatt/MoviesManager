@@ -1,6 +1,5 @@
-package ipt.pt.sd.moviesmanager
+package ipt.pt.sd.moviesmanager.activities
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -24,12 +23,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import ipt.pt.sd.moviesmanager.API
+import ipt.pt.sd.moviesmanager.R
+import ipt.pt.sd.moviesmanager.adapters.ListAdapter
 import ipt.pt.sd.moviesmanager.models.Movie
 import ipt.pt.sd.moviesmanager.models.Search
-import ipt.pt.sd.moviesmanager.models.User
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.movie_item_view.*
 import retrofit2.Response
 import retrofit2.Call
 import retrofit2.Callback

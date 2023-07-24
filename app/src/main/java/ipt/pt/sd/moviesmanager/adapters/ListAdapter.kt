@@ -1,4 +1,4 @@
-package ipt.pt.sd.moviesmanager
+package ipt.pt.sd.moviesmanager.adapters
 
 
 
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import ipt.pt.sd.moviesmanager.R
 
 import ipt.pt.sd.moviesmanager.models.Movie
 import kotlinx.android.synthetic.main.movie_item_view.view.*
@@ -16,11 +17,11 @@ import kotlinx.android.synthetic.main.movie_item_view.view.*
 
 class ListAdapter (private val itemsList: MutableList<Movie>) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.movie_item_view, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //Obtém referência para o layout da view do item na posição position
         val layout = holder.layoutView
         //Obtém o objeto media da lista de itens na posição position

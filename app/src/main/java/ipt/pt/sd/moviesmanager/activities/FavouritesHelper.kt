@@ -1,9 +1,10 @@
-package ipt.pt.sd.moviesmanager
+package ipt.pt.sd.moviesmanager.activities
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import ipt.pt.sd.moviesmanager.R
 import ipt.pt.sd.moviesmanager.models.Movie
 
 class FavouritesHelper (context: Context) {

@@ -1,4 +1,4 @@
-package ipt.pt.sd.moviesmanager
+package ipt.pt.sd.moviesmanager.activities
 
 import android.app.Application
 import com.google.firebase.FirebaseApp

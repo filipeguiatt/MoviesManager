@@ -1,4 +1,4 @@
-package ipt.pt.sd.moviesmanager
+package ipt.pt.sd.moviesmanager.activities
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import ipt.pt.sd.moviesmanager.R
 import kotlinx.android.synthetic.main.activity_login.btLogin
 import kotlinx.android.synthetic.main.activity_login.btToRegister
 import kotlinx.android.synthetic.main.activity_login.txtEmailLogin
