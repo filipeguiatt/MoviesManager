@@ -5,15 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:background="@drawable/background_gradient">
+    android:background="#1C1C1C ">
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/porpcorn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmailLogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </ImageView>
 
     <EditText
         android:id="@+id/txtEmailLogin"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:textColorHint="#FFFFFF"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:backgroundTint="#333333"
         android:minHeight="48dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,10 +39,15 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:textColorHint="#FFFFFF"
+        android:background="@drawable/rounded_edittext_register_login"
+        android:backgroundTint="#333333"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/txtEmailLogin" />
 
     <Button
@@ -36,8 +55,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:background="#006400"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FFFFFF "
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/txtPasswordLogin">
     </Button>
 

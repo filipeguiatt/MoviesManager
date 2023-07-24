@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient">
+    android:background="#1C1C1C ">
 
 
     <com.mikhaellopez.circularimageview.CircularImageView
@@ -38,6 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Escolher Fotografia"
+        android:textColor="#FFFFFF"
+        android:background="333333"
         app:layout_constraintTop_toBottomOf="@id/imgPhoto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +50,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Nome"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#333333"
         android:minHeight="48dp"
         android:background="@drawable/rounded_edittext_register_login"
         android:textAlignment="center"
@@ -61,6 +65,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#333333"
         android:minHeight="48dp"
         android:layout_marginTop="10dp"
         android:textAlignment="center"
@@ -75,6 +81,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:textColorHint="#FFFFFF"
+        android:backgroundTint="#333333"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:layout_marginTop="10dp"
@@ -89,9 +97,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registar"
+        android:textColor="#FFFFFF "
+        android:backgroundTint="#006400 "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword">
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        android:layout_marginTop="20dp">
     </Button>
 
     <TextView

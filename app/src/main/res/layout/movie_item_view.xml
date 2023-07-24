@@ -5,8 +5,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4D4D4D"
-    android:backgroundTint="#4D4D4D"
+    android:background="#1C1C1C "
+    android:backgroundTint="#1C1C1C "
     android:clipToPadding="false"
     >
 
@@ -58,13 +58,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:shadowColor="#215E21"
-        android:text="Release Date:"
-        android:textColor="#FFC107"
+        android:text="Data de Estreia:"
+        android:textColor="#006400 "
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblVote"
-        tools:text="Release Date" />
+        tools:text="Data de Estreia: " />
 
     <TextView
         android:id="@+id/release_date"
@@ -84,20 +84,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:shadowColor="#215E21"
-        android:text="Rating:"
-        android:textColor="#FFC107"
+        android:text="Pontuação:"
+        android:textColor="#006400 "
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblTitle"
-        tools:text="Rating" />
+        tools:text="Pontuação: " />
 
     <TextView
         android:id="@+id/vote_average"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:text="teste"
+        android:text="item"
         android:textColor="#FFFFFF"
         android:textSize="17sp"
         app:layout_constraintStart_toEndOf="@+id/lblVote"
@@ -111,13 +111,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:shadowColor="#215E21"
-        android:text="Overview:"
-        android:textColor="#FFC107"
+        android:text="Descrição:"
+        android:textColor="#006400 "
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblReleaseDate"
-        tools:text="Overview" />
+        tools:text="Descrição: " />
 
     <TextView
         android:id="@+id/overview"
