@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1C1C ">
+    android:background="#1C1C1C">
 
 
     <com.mikhaellopez.circularimageview.CircularImageView
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Escolher Fotografia"
         android:textColor="#FFFFFF"
-        android:background="333333"
+        android:background="#1C1C1C"
         app:layout_constraintTop_toBottomOf="@id/imgPhoto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
